@@ -163,6 +163,7 @@ class Sponsor(models.Model):
         return self.slug
 
 
+
 class Hackathon(models.Model):
 
     user = models.ForeignKey(
@@ -200,3 +201,38 @@ class Hackathon(models.Model):
 
     def __str__(self):
         return self.slug
+
+
+class Nomination(models.Model):
+    """
+    Призовые номинации
+    """
+
+    name = models.CharField(max_length=32)
+
+    sponsor = models.ForeignKey(
+        Sponsor,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+    )
+
+    hackathon = models.ForeignKey(
+        Hackathon,
+        on_delete=models.DO_NOTHING,
+        blank=False,
+        null=False,
+    )
+
+    teams = models.ManyToManyField(
+        Team,
+        blank=True,
+    )
+
+    info = models.CharField(max_length=32, blank=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(blank=True)
+    prize = models.PositiveSmallIntegerField(blank=True)
+
+    def __str__(self):
+        return self.name

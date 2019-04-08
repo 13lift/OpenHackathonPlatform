@@ -38,3 +38,10 @@ class Team(admin.ModelAdmin):
 class Sponsor(admin.ModelAdmin):
 
     fields = ([f.name for f in Sponsor._meta.fields][1:])
+
+@admin.register(Nomination)
+class Nomination(admin.ModelAdmin):
+
+    list_display = ('id', 'name', 'sponsor', 'hackathon')
+    list_filter = ('sponsor', 'hackathon')
+    fields = ([f.name for f in Nomination._meta.fields][1:])
