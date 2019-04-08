@@ -33,3 +33,8 @@ class Hacakthon(admin.ModelAdmin):
 class Team(admin.ModelAdmin):
 
     fields = ([f.name for f in Team._meta.fields][1:])
+
+@admin.register(Sponsor)
+class Sponsor(admin.ModelAdmin):
+
+    fields = ([f.name for f in Sponsor._meta.fields][1:])

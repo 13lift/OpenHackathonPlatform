@@ -13,7 +13,7 @@ class City(models.Model):
 
     slug = models.SlugField(
         max_length=20,
-        blank=True,
+        blank=False,
     )
 
     def __str__(self):
@@ -21,6 +21,9 @@ class City(models.Model):
 
 
 class Hacker(models.Model):
+    """
+    Участник команды
+    """
 
     user = models.ForeignKey(
         User,
@@ -40,7 +43,7 @@ class Hacker(models.Model):
 
     slug = models.SlugField(
         max_length=20,
-        blank=True,
+        blank=False,
     )
 
     def __str__(self):
@@ -63,6 +66,9 @@ class TeamStatus(object):
 
 
 class Team(models.Model):
+    """
+    Команда хакатона
+    """
 
     members = models.ManyToManyField(Hacker)
 
@@ -93,44 +99,12 @@ class Team(models.Model):
 
     slug = models.SlugField(
         max_length=20,
-        blank=True,
+        blank=False,
     )
 
     def __str__(self):
         return self.slug
 
-
-
-class Hackathon(models.Model):
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.DO_NOTHING,
-        blank=True,
-        null=True,
-    )
-    name = models.CharField(max_length=32)
-    url = models.URLField(max_length=150)
-    startDate = models.DateTimeField()
-    endDate = models.DateTimeField()
-
-    city = models.ForeignKey(
-        City,
-        on_delete=models.DO_NOTHING,
-        blank=True,
-        null=True,
-    )
-    info = models.CharField(max_length=32)
-    description = models.TextField()
-    image = models.ImageField()
-
-    slug = models.SlugField(
-        max_length=20,
-        blank=True,
-    )
-
-    def __str__(self):
-        return self.slug
 
 
 class Organizer(models.Model):
@@ -149,11 +123,79 @@ class Organizer(models.Model):
         blank=True,
         null=True,
     )
+
     info = models.CharField(max_length=32)
+    description = models.TextField()
+    image = models.ImageField()
+    url = models.URLField()
 
     slug = models.SlugField(
         max_length=20,
+        blank=False,
+    )
+
+    def __str__(self):
+        return self.slug
+
+
+class Sponsor(models.Model):
+
+    name = models.CharField(max_length=32)
+
+    manager = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,
         blank=True,
+        null=True,
+    )
+
+    info = models.CharField(max_length=32)
+    description = models.TextField()
+    url = models.URLField()
+    image = models.ImageField()
+
+    slug = models.SlugField(
+        max_length=20,
+        blank=False,
+    )
+
+    def __str__(self):
+        return self.slug
+
+
+class Hackathon(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+    )
+
+    sponsor = models.ManyToManyField(Sponsor)
+    organizer = models.ForeignKey(Organizer, on_delete=models.DO_NOTHING)
+
+    name = models.CharField(max_length=32)
+    url = models.URLField(max_length=150)
+    startDate = models.DateTimeField()
+    endDate = models.DateTimeField()
+
+    address = models.CharField(max_length=32)
+    city = models.ForeignKey(
+        City,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+    )
+
+    info = models.CharField(max_length=32)
+    program = models.TextField()
+    description = models.TextField()
+    image = models.ImageField()
+
+    slug = models.SlugField(
+        max_length=20,
+        blank=False,
     )
 
     def __str__(self):
