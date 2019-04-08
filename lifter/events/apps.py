@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class HackConfig(AppConfig):
-    name = 'hack'
+class EventsConfig(AppConfig):
+    name = 'events'

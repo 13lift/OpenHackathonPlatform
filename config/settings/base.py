@@ -82,8 +82,9 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     "lifter.users.apps.UsersAppConfig",
-    "hack",
-    "events",
+    # "lifter.hack.apps.HackConfig",
+    "lifter.hack",
+    "lifter.events",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

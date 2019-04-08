@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Hack{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Hackathons</h2>
+
+  <div class="list-group">
+    {% for hack in hackathon_list %}
+      <a href="{% url 'hack:detail' hack.slug %}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ hack.name }}</h4>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

@@ -5,7 +5,7 @@ User = get_user_model()
 
 from django.db import models
 
-from hack.models import City, Orginizer
+from lifter.hack.models import City, Orginizer
 
 
 class EventType(models.Model):

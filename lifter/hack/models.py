@@ -46,6 +46,12 @@ class Hacker(models.Model):
 
 class Hackathon(models.Model):
 
+    user = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+    )
     name = models.CharField(max_length=32)
     city = models.ForeignKey(
         City,
