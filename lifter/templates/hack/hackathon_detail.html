@@ -9,9 +9,18 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <h2>{{ object.slug }}</h2>
+      <h1>{{ object.name }}</h1>
       {% if object.name %}
-        <p>{{ object.name }}</p>
+        <h3># {{ object.slug }}</h3>
+        <img src="{{ object.image.url }}" height="50%">
+        <br/>
+        <i>{{ object.info }}</i>
+        <p>{{ object.description }}</p>
+        <p>{{ object.url }}</p>
+        <p>city: {{ object.city.name }}</p>
+        <p>author: {{ object.user }}</p>
+        <p>Start: {{ object.startDate }}</p>
+        <p>End: {{ object.endDate }}</p>
       {% endif %}
     </div>
   </div>

@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.db import models
@@ -35,6 +36,7 @@ class Hacker(models.Model):
     )
     skils = models.CharField(max_length=32)
     rating = models.PositiveIntegerField()
+    github = models.URLField()
 
     slug = models.SlugField(
         max_length=20,
@@ -43,6 +45,61 @@ class Hacker(models.Model):
 
     def __str__(self):
         return self.slug
+
+
+class TeamStatus(object):
+    """
+    Статусы команды
+    """
+    NOT_READY = 0
+    READY = 1
+    EXCLUDED = -1
+
+    CHOICES = (
+        (NOT_READY, 'Team NOT ready'),
+        (READY, 'Team ready!'),
+        (EXCLUDED, 'excluded'),
+    )
+
+
+class Team(models.Model):
+
+    members = models.ManyToManyField(Hacker)
+
+    name = models.CharField(max_length=32)
+    info = models.CharField(max_length=255)
+    github = models.URLField()
+    presentation = models.FileField()
+
+    image = models.ImageField()
+
+    leader = models.ForeignKey(
+        Hacker,
+        on_delete=models.DO_NOTHING,
+        related_name='leader'
+    )
+
+    status = models.SmallIntegerField(
+        db_index=True,
+        choices=TeamStatus.CHOICES,
+        default=TeamStatus.NOT_READY,
+        verbose_name=_('Статус команды')
+    )
+
+    # TODO: сделать в процентах
+    progress = models.PositiveSmallIntegerField()
+
+    rating = models.PositiveIntegerField()
+
+    slug = models.SlugField(
+        max_length=20,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.slug
+
+
 
 class Hackathon(models.Model):
 
@@ -53,6 +110,10 @@ class Hackathon(models.Model):
         null=True,
     )
     name = models.CharField(max_length=32)
+    url = models.URLField(max_length=150)
+    startDate = models.DateTimeField()
+    endDate = models.DateTimeField()
+
     city = models.ForeignKey(
         City,
         on_delete=models.DO_NOTHING,
@@ -60,6 +121,8 @@ class Hackathon(models.Model):
         null=True,
     )
     info = models.CharField(max_length=32)
+    description = models.TextField()
+    image = models.ImageField()
 
     slug = models.SlugField(
         max_length=20,
@@ -69,7 +132,8 @@ class Hackathon(models.Model):
     def __str__(self):
         return self.slug
 
-class Orginizer(models.Model):
+
+class Organizer(models.Model):
 
     name = models.CharField(max_length=32)
 

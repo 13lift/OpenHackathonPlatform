@@ -5,7 +5,7 @@ User = get_user_model()
 
 from django.db import models
 
-from lifter.hack.models import City, Orginizer
+from lifter.hack.models import City, Organizer
 
 
 class EventType(models.Model):
@@ -37,8 +37,8 @@ class Event(models.Model):
         blank=True,
         null=True,
     )
-    orginizer = models.ForeignKey(
-        Orginizer,
+    organizer = models.ForeignKey(
+        Organizer,
         on_delete=models.DO_NOTHING,
         blank=True,
         null=True,

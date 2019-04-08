@@ -19,12 +19,17 @@ class City(admin.ModelAdmin):
 
     fields = ([f.name for f in City._meta.fields][1:])
 
-@admin.register(Orginizer)
-class Orginizer(admin.ModelAdmin):
+@admin.register(Organizer)
+class Organizer(admin.ModelAdmin):
 
-    fields = ([f.name for f in Orginizer._meta.fields][1:])
+    fields = ([f.name for f in Organizer._meta.fields][1:])
 
 @admin.register(Hackathon)
 class Hacakthon(admin.ModelAdmin):
 
     fields = ([f.name for f in Hackathon._meta.fields][1:])
+
+@admin.register(Team)
+class Team(admin.ModelAdmin):
+
+    fields = ([f.name for f in Team._meta.fields][1:])
