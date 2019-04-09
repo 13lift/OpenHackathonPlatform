@@ -85,6 +85,7 @@ LOCAL_APPS = [
     # "lifter.hack.apps.HackConfig",
     "lifter.hack",
     "lifter.events",
+    "lifter.profiles",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
